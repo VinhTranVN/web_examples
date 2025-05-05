@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automatic Image Grid</title>
+    <style>
+
+        .headerTitle {
+            color: white;
+            padding-left: 16px;
+            font-size: 1.4em;
+            display: flex; /* Use flexbox to control vertical alignment */
+            align-items: flex-end; /* Align items to the bottom of the container */
+            height: 100%; /* Ensure the container has a height */
+            /* If the headerTitle is within a container that doesn't have a set height, 
+                you'll need to set a height on that container. */
+        }
+
+        .grid-container-wrapper {
+            position: relative;
+            width: 100%; /* Adjust as needed */
+            height: 360px; /* Adjust as needed */
+            overflow: hidden;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 1;
+            transition: opacity 1.0s ease-in-out;
+        }
+
+        .grid-container.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .next-grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 1.0s ease-in-out;
+            visibility: hidden;
+        }
+
+        .next-grid-container.fade-in {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Style for the image containers within the grid */
+        .grid-item, .next-grid-item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border: 0px solid #ccc; /* Optional border for visualization */
+        }
+
+        /* Style for the images to fit within the grid cells */
+        .grid-item img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover; /* Maintain aspect ratio and cover the container */
+            width: 160px; /* Ensure they take the full width of the grid cell */
+            height: 160px; /* Ensure they take the full height of the grid cell */
+        }
+    </style>
+</head>
+<body bgcolor="#000000">
+    <div class="headerTitle">
+        <p><strong>Phụ Kiện Chơi Game Trong Trang Trưng Bày & Phần Miêu Tả</strong></p>
+    </div>
+
+    <div class="grid-container-wrapper">
+        <div class="grid-container show" id="currentGrid">
+            <div class="grid-item"><img src="Images/plextone_g27.jpg" alt="plextone tainghe g27"></div>
+            <div class="grid-item"><img src="Images/memo_cx07.jpg" alt="memo_cx07"></div>
+            <div class="grid-item"><img src="Images/op_ipad.jpg" alt="op_ipad"></div>
+            <div class="grid-item"><img src="Images/hub_type_c_plextone.jpg" alt="hub_type_c_plextone"></div>
+            <div class="grid-item"><img src="Images/tay_cam_ipad.jpg" alt="tay_cam_ipad"></div>
+            <div class="grid-item"><img src="Images/lenovo_gm2.jpg" alt="lenovo_gm2"></div>
+        </div>
+
+        <div class="next-grid-container" id="nextGrid">
+            <div class="grid-item"><img src="Images/hyperX2.jpg" alt="hyperX2"></div>
+            <div class="grid-item"><img src="Images/memo_CX10.jpg" alt="memo_CX10"></div>
+            <div class="grid-item"><img src="Images/solanh.jpg" alt="solanh"></div>
+            <div class="grid-item"><img src="Images/hub_type_c_3.jpg" alt="hub_type_c_3"></div>
+            <div class="grid-item"><img src="Images/bao_tay_choi_game.jpg" alt="bao_tay_choi_game"></div>
+            <div class="grid-item"><img src="Images/capture_card.jpg" alt="capture_card"></div>
+        </div>
+    </div>
+
+    <script>
+        const currentGridContainer = document.getElementById('currentGrid');
+        const nextGridContainer = document.getElementById('nextGrid');
+        let isShowingNext = false;
+
+        function switchGrids() {
+            if (isShowingNext) {
+                nextGridContainer.classList.remove('fade-in');
+                nextGridContainer.classList.add('fade-out');
+                currentGridContainer.classList.remove('fade-out');
+                currentGridContainer.classList.add('fade-in');
+                isShowingNext = false;
+            } else {
+                currentGridContainer.classList.add('fade-out');
+                nextGridContainer.classList.remove('fade-out');
+                nextGridContainer.classList.add('fade-in');
+                isShowingNext = true;
+            }
+        }
+
+        setInterval(switchGrids, 15000);
+    </script>
+
+</body>
+</html>
